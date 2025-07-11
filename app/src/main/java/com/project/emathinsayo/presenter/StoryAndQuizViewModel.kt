@@ -54,6 +54,7 @@ class StoryAndQuizViewModel @Inject constructor(
     private val _showScore = MutableStateFlow<Boolean>(false)
     val showScore = _showScore.asStateFlow()
 
+
     fun onRetake() {
         _currentStory.value = when (level) {
             "Addition" -> Story.ADDITIONS
@@ -124,7 +125,7 @@ class StoryAndQuizViewModel @Inject constructor(
                     }
                 }
                 else -> {
-                    if (cQuiz.id == 3) {
+                    if (cQuiz.id == quizzes.size) {
                         _showScore.value = true
                         score.value?.let { bookRepository.updateScore(it, level.toString()) }
                     }

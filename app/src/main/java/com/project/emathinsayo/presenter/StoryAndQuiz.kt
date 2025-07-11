@@ -34,7 +34,6 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Home
-import androidx.compose.material.icons.filled.PlayArrow
 import androidx.compose.material.icons.filled.Refresh
 import androidx.compose.material.icons.filled.Star
 import androidx.compose.material3.AlertDialog
@@ -90,6 +89,7 @@ class StoryAndQuiz: ComponentActivity() {
             val answer by viewModel.answer.collectAsState()
             val level = viewModel.level // use this level to change the rules
             val score by viewModel.score.collectAsState()
+            val quizItem = currentStory.quiz.size
 
             val showScore by viewModel.showScore.collectAsState()
 
@@ -103,7 +103,8 @@ class StoryAndQuiz: ComponentActivity() {
                     ::onSubmit,
                     ::onChooseAnswer,
                     ::onSeeResult,
-                    level
+                    level,
+                    quizItem
                 )
             }
 
@@ -166,7 +167,8 @@ class StoryAndQuiz: ComponentActivity() {
                     onPlayClick = {
                         showDialog = false
                         onRetake()
-                    }
+                    },
+                    quizItem = quizItem
                 )
             }
         }
@@ -210,6 +212,7 @@ fun StoryAndQuizContent(
     onChooseAnswer: (Int) -> Unit, // Can handle both Int and String
     onSeeResult: () -> Unit,
     level: String?,
+    quizItem: Int,
 ) {
     var fillInAnswer by remember { mutableStateOf("") }
     val isHard = level?.lowercase() == "hard"
@@ -409,7 +412,7 @@ fun StoryAndQuizContent(
 
             val lastNumber = when (level) {
                 "Takefinalquiz" -> 10
-                else -> 3
+                else -> quizItem
             }
 
             val buttonText = when {
@@ -522,14 +525,16 @@ fun ExamCancellationDialog(onCancel: () -> Unit, onDismiss: () -> Unit) {
 @Preview
 @Composable
 fun GameDialogPreview() {
-    GameResultDialog(1,{}, {})
+    GameResultDialog(1, {}, {},4)
 }
 
 @Composable
-fun GameResultDialog(score: Int, onHomeClick: () -> Unit, onPlayClick: () -> Unit) {
+fun GameResultDialog(score: Int, onHomeClick: () -> Unit, onPlayClick: () -> Unit, quizItem: Int) {
+
+    val calculatedScore: Int = (score/quizItem)*3
     val (starsEarned, label, bannerColor) = when {
-        score >= 3 -> Triple(3, "EXCELLENT", Color(0xFF4CAF50))
-        score >= 2 -> Triple(2, "   GOOD   ", Color(0xFFFF9800))
+        calculatedScore >= 3 -> Triple(3, "EXCELLENT", Color(0xFF4CAF50))
+        calculatedScore >= 2 -> Triple(2, "   GOOD   ", Color(0xFFFF9800))
         else ->       Triple(1, "  FAILED  ", Color(0xFFF44336))
     }
 
@@ -586,7 +591,7 @@ fun GameResultDialog(score: Int, onHomeClick: () -> Unit, onPlayClick: () -> Uni
                 Spacer(modifier = Modifier.height(16.dp))
 
                 Text("YOUR SCORE", fontWeight = FontWeight.Bold, fontSize = 18.sp, color = Color.DarkGray)
-                Text("$score/3", fontSize = 28.sp, fontWeight = FontWeight.Bold, color = Color(0xFFF57C00))
+                Text("$score/$quizItem", fontSize = 28.sp, fontWeight = FontWeight.Bold, color = Color(0xFFF57C00))
 
                 Spacer(modifier = Modifier.height(16.dp))
 
@@ -638,5 +643,6 @@ fun StoryAndQuizContentPreview() {
         {},
         {},
         "medium",
+        3,
     )
 }

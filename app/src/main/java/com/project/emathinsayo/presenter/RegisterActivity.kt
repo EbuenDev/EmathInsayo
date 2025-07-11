@@ -124,7 +124,11 @@ fun NameAgeGradeScreen(
                     modifier = Modifier
                         .wrapContentSize()
                         .clip(CircleShape)
-                        .border(4.dp, if(isSelected) Color(android.graphics.Color.parseColor("#38A169")) else Color.White, CircleShape)
+                        .border(
+                            4.dp,
+                            if (isSelected) Color(android.graphics.Color.parseColor("#38A169")) else Color.White,
+                            CircleShape
+                        )
                         .background(MaterialTheme.colorScheme.surface)
                         .clickable {
                             selectedAvatar = avatar
@@ -146,7 +150,8 @@ fun NameAgeGradeScreen(
                 value = name,
                 onValueChange = { name = it },
                 placeholder = { Text("Name", color = Color.LightGray) },
-                modifier = Modifier.fillMaxWidth()
+                modifier = Modifier
+                    .fillMaxWidth()
                     .padding(horizontal = 16.dp),
                 isError = errorList.any { it == "name" },
                 colors = OutlinedTextFieldDefaults.colors(

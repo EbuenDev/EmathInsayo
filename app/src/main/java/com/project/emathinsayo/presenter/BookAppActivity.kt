@@ -275,7 +275,7 @@ fun ProfileScreen(kFunction4: (String, Int) -> Unit, profile: UserProfile?) {
 @OptIn(ExperimentalFoundationApi::class)
 @ExperimentalMaterial3Api
 @Composable
-fun MediumTopAppBarExample(
+fun MediumTopAppBarExample( // home
     user: UserProfile?,
     onLessonClick: (String) -> Unit,
     scores: Map<String, Int?>?,

@@ -8,7 +8,7 @@ enum class Story(
     val quiz: List<Quiz>,
     var nextStory: Story? = null
 ) {
-    ADDITIONS(1, quiz = listOf(Quiz.ADDITIONS_QUIZ1, Quiz.ADDITIONS_QUIZ2, Quiz.ADDITIONS_QUIZ3)),
+    ADDITIONS(1, quiz = listOf(Quiz.ADDITIONS_QUIZ1, Quiz.ADDITIONS_QUIZ2, Quiz.ADDITIONS_QUIZ3, Quiz.ADDITIONS_QUIZ4)),
     SUBTRACTIONS(2, quiz = listOf(Quiz.SUBTRACTION_QUIZ1, Quiz.SUBTRACTION_QUIZ2, Quiz.SUBTRACTION_QUIZ3)),
     MULTIPLICATION(3, quiz = listOf(Quiz.MULTIPLICATION_QUIZ1, Quiz.MULTIPLICATION_QUIZ2, Quiz.MULTIPLICATION_QUIZ3)),
     DIVISION(4, quiz = listOf(Quiz.DIVISION_QUIZ1, Quiz.DIVISION_QUIZ2, Quiz.DIVISION_QUIZ3)),
@@ -44,6 +44,8 @@ enum class Quiz(
     ADDITIONS_QUIZ1(1, "What is 23 + 15?", listOf("40", "38", "28", "33"), 2),
     ADDITIONS_QUIZ2(2, "What is 7 + 9?", listOf("16", "14", "15", "17"), 1),
     ADDITIONS_QUIZ3(3, "What is 120 + 45?", listOf("155", "165", "160", "175"), 2),
+    ADDITIONS_QUIZ4(4,"1 + 1 ", listOf("1", "2", "3", "4"), 2),
+
 
     // Subtractions
     SUBTRACTION_QUIZ1(1, "What is 50 - 18?", listOf("28", "30", "32", "34"), 3),
