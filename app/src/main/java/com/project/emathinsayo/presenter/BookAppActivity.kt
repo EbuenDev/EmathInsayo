@@ -25,6 +25,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -63,6 +64,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.graphics.vector.ImageVector
@@ -74,6 +76,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.core.graphics.toColorInt
@@ -285,7 +288,6 @@ fun MediumTopAppBarExample( // home
 
     // Detect scroll state to conditionally apply rounded corners
     val isCollapsed = true // Adjust this value based on how much the header should collapse
-
     // Remember the state of the LazyColumn
     // Box to layer the image background and content
     Box(
@@ -488,6 +490,7 @@ fun MediumTopAppBarExample( // home
     }
 }
 
+
 @Composable
 fun SubjectButton(
     icon: Int,
@@ -497,105 +500,157 @@ fun SubjectButton(
     scores: Map<String, Int?>?,
     onSeeResult: (String) -> Unit
 ) {
-
     val score = scores?.get(level)
+    
+    // Define different color gradients for each subject
+    val gradientColors = when (level) {
+        "Addition" -> listOf(Color(0xFF4CAF50), Color(0xFF66BB6A)) // Green
+        "Subtraction" -> listOf(Color(0xFFF44336), Color(0xFFEF5350)) // Red
+        "Multiplication" -> listOf(Color(0xFFFF9800), Color(0xFFFFB74D)) // Orange
+        "Diviving" -> listOf(Color(0xFF2196F3), Color(0xFF64B5F6)) // Blue
+        "Addingf" -> listOf(Color(0xFF9C27B0), Color(0xFFBA68C8)) // Purple
+        "Subtractingf" -> listOf(Color(0xFFE91E63), Color(0xFFF06292)) // Pink
+        "Multiplyingf" -> listOf(Color(0xFF607D8B), Color(0xFF90A4AE)) // Blue Grey
+        "Dividingf" -> listOf(Color(0xFF795548), Color(0xFFA1887F)) // Brown
+        "Addsubd" -> listOf(Color(0xFF00BCD4), Color(0xFF4DD0E1)) // Cyan
+        "Multiplyingd" -> listOf(Color(0xFF8BC34A), Color(0xFFAED581)) // Light Green
+        "Dived" -> listOf(Color(0xFFFF5722), Color(0xFFFF8A65)) // Deep Orange
+        "Takefinalquiz" -> listOf(Color(0xFF673AB7), Color(0xFF9575CD)) // Deep Purple
+        else -> listOf(Color(0xFF9B5DE5), Color(0xFFF15BB5)) // Default purple-pink
+    }
+
     Card(
-        shape = RoundedCornerShape(8.dp),
-        colors = CardDefaults.cardColors(containerColor = Color(0xFF49AFDC)),
+        shape = RoundedCornerShape(24.dp),
+        colors = CardDefaults.cardColors(containerColor = Color.Transparent),
         modifier = Modifier
             .clickable {
                 onLessonClick.invoke(level)
             }
-            .padding(top = 16.dp,start = 16.dp, end = 16.dp)
+            .padding(top = 16.dp, start = 16.dp, end = 16.dp)
             .fillMaxWidth()
+            .heightIn(min = 120.dp)
     ) {
-        Row(
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.SpaceBetween,
-            modifier = Modifier.fillMaxWidth()
+        Box(
+            modifier = Modifier
+                .background(
+                    brush = Brush.horizontalGradient(gradientColors),
+                    shape = RoundedCornerShape(24.dp)
+                )
+                .fillMaxSize()
         ) {
-            Column (modifier = Modifier.weight(1f)) {
-                Row(verticalAlignment = Alignment.CenterVertically) {
-                    Text(
-                        text = title,
-                        fontWeight = FontWeight.Bold,
-                        style = MaterialTheme.typography.titleLarge,
-                        color = MaterialTheme.colorScheme.onPrimary,
-                        modifier = Modifier.padding(top = 8.dp, start = 16.dp)
-                    )
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.Center,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 16.dp, vertical = 16.dp)
+            ) {
+                Column(modifier = Modifier.weight(1f)) {
+                    Row(verticalAlignment = Alignment.CenterVertically) {
+                        Text(
+                            text = title,
+                            fontWeight = FontWeight.Bold,
+                            fontSize = 26.sp,
+                            style = MaterialTheme.typography.titleLarge,
+                            color = Color.White,
+                            modifier = Modifier.padding(top = 8.dp, start = 16.dp)
+                        )
 
-                    if (score != null) {
-                        OutlinedCard (
-                            colors = CardDefaults.cardColors(containerColor = Color(0xFF49AFDC)),
-                            modifier = Modifier.padding(start = 6.dp, end = 4.dp, top = 9.dp)
-                        ) {
-                            Row(
-                                horizontalArrangement = Arrangement.Center,
-                                verticalAlignment = Alignment.CenterVertically
+                        if (score != null) {
+                            OutlinedCard(
+                                colors = CardDefaults.cardColors(containerColor = Color(0xFF49AFDC)),
+                                modifier = Modifier.padding(start = 6.dp, end = 4.dp, top = 9.dp)
                             ) {
-                                Text(
-                                    text = "Taken",
-                                    style = MaterialTheme.typography.bodySmall,
-                                    color = Color.White,
-                                    modifier = Modifier.padding(start = 6.dp, top = 4.dp, bottom = 4.dp)
-                                )
-                                Icon(
-                                    imageVector = Icons.Default.Check,
-                                    contentDescription = "check",
-                                    tint = Color.Green,
-                                    modifier = Modifier.size(24.dp)
-                                        .padding(top = 4.dp, bottom = 4.dp, end = 4.dp)
-                                )
+                                Row(
+                                    horizontalArrangement = Arrangement.Center,
+                                    verticalAlignment = Alignment.CenterVertically
+                                ) {
+                                    Text(
+                                        text = "Taken",
+                                        style = MaterialTheme.typography.bodySmall,
+                                        color = Color.White,
+                                        modifier = Modifier.padding(
+                                            start = 6.dp,
+                                            top = 4.dp,
+                                            bottom = 4.dp
+                                        )
+                                    )
+                                    Icon(
+                                        imageVector = Icons.Default.Check,
+                                        contentDescription = "check",
+                                        tint = Color.Green,
+                                        modifier = Modifier
+                                            .size(24.dp)
+                                            .padding(top = 4.dp, bottom = 4.dp, end = 4.dp)
+                                    )
+                                }
                             }
                         }
                     }
-                }
 
-                if (score != null && level != "Takefinalquiz") {
-                    Row(horizontalArrangement = Arrangement.Center,
-                        modifier = Modifier.padding(start = 16.dp, end = 16.dp, bottom = 8.dp)) {
-                        repeat(3) { index ->
-                            val starColor = if (index < score) Color(0xFFFFC107) else Color.LightGray
-                            Icon(
-                                imageVector = Icons.Default.Star,
-                                contentDescription = "Star",
-                                tint = starColor,
-                                modifier = Modifier.size(36.dp).padding(vertical = 4.dp)
+                    if (score != null && level != "Takefinalquiz") {
+                        Row(
+                            horizontalArrangement = Arrangement.Center,
+                            modifier = Modifier.padding(start = 16.dp, end = 16.dp, bottom = 8.dp)
+                        ) {
+                            repeat(3) { index ->
+                                val starColor =
+                                    if (index < score) Color(0xFFFFC107) else Color.LightGray
+                                Icon(
+                                    imageVector = Icons.Default.Star,
+                                    contentDescription = "Star",
+                                    tint = starColor,
+                                    modifier = Modifier
+                                        .size(36.dp)
+                                        .padding(vertical = 4.dp)
+                                )
+                            }
+                        }
+                    } else {
+                        Spacer(
+                            modifier = Modifier.padding(
+                                start = 16.dp,
+                                end = 16.dp,
+                                bottom = 8.dp
+                            )
+                        )
+                    }
+
+                    if (score != null && level == "Takefinalquiz") {
+                        Button(
+                            onClick = { onSeeResult.invoke(level) },
+                            modifier = Modifier.padding(start = 16.dp, end = 16.dp, bottom = 8.dp),
+                            colors = ButtonDefaults.buttonColors(containerColor = Color("#98fbcb".toColorInt())),
+                            shape = RoundedCornerShape(30.dp),
+                        ) {
+                            Text(
+                                "View Result",
+                                style = MaterialTheme.typography.bodySmall.copy(color = Color.DarkGray),
+                                textAlign = TextAlign.Center,
+                                fontWeight = FontWeight.Bold
                             )
                         }
                     }
-                } else {
-                    Spacer(modifier = Modifier.padding(start = 16.dp, end = 16.dp, bottom = 8.dp))
                 }
 
-                if (score != null && level == "Takefinalquiz") {
-                    Button(
-                        onClick = { onSeeResult.invoke(level) },
-                        modifier = Modifier.padding(start = 16.dp, end = 16.dp, bottom = 8.dp),
-                        colors = ButtonDefaults.buttonColors(containerColor = Color("#98fbcb".toColorInt())),
-                        shape = RoundedCornerShape(30.dp),
-                    ) {
-                        Text("View Result",style = MaterialTheme.typography.bodySmall.copy(color = Color.DarkGray),
-                            textAlign = TextAlign.Center, fontWeight = FontWeight.Bold)
-                    }
-
-                }
-
+                CuteImage(
+                    icon = painterResource(id = icon),
+                    modifier = Modifier
+                        .padding(end = 16.dp, top = 16.dp, bottom = 16.dp)
+                        .size(36.dp)
+                )
             }
-
-            CuteImage(
-                icon = painterResource(id = icon),
-                modifier = Modifier.padding(end = 16.dp, top = 16.dp, bottom = 16.dp).size(36.dp)
-            )
         }
     }
 }
+
+
 
 @Composable
 fun CuteImage(icon: Painter, modifier: Modifier = Modifier) {
     Image(painter = icon, contentDescription = null, modifier = modifier)
 }
-
+@Preview
 @Composable
 fun SubjectButtonPreview() {
     SubjectButton(R.drawable.plus, "Addition", {}, "", null, {})
@@ -718,6 +773,7 @@ fun AboutPage() {
             .verticalScroll(scrollState)
             .background(MaterialTheme.colorScheme.background)
             .padding(start = 16.dp, top = 60.dp, bottom = 200.dp, end = 16.dp)
+
     ) {
         // Header Section
         Text(
@@ -745,6 +801,7 @@ fun AboutPage() {
                 
                 Together, let’s make learning math a joyful and meaningful experience!
                 """.trimIndent(),
+            fontSize = 20.sp,
             style = MaterialTheme.typography.bodyMedium,
             color = MaterialTheme.colorScheme.onBackground,
             modifier = Modifier.padding(bottom = 16.dp)
@@ -752,7 +809,7 @@ fun AboutPage() {
 
         // Team Members Section
         Text(
-            text = "Team Members",
+            text = "TEAM MEMBERS",
             style = MaterialTheme.typography.headlineMedium,
             color = MainColorUtils.primary,
             modifier = Modifier.padding(bottom = 8.dp)
@@ -784,12 +841,18 @@ fun TeamMembersCard() {
         elevation = CardDefaults.cardElevation(8.dp),
         colors = CardDefaults.cardColors(containerColor = MainColorUtils.surface)
     ) {
-        Column(modifier = Modifier.padding(16.dp)) {
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(20.dp),
+            horizontalAlignment = Alignment.CenterHorizontally){
             Text(
                 text = "Our Team Members",
+                fontSize = 18.sp,
                 style = MaterialTheme.typography.titleSmall,
                 color = MainColorUtils.primary,
                 modifier = Modifier.padding(bottom = 8.dp)
+
             )
             Text(
                 text = """
@@ -799,6 +862,7 @@ fun TeamMembersCard() {
                     • Emmanuel Toledo
                     • John Lloyd Ladea
                 """.trimIndent(),
+                fontSize = 15.sp,
                 style = MaterialTheme.typography.bodyMedium,
                 color = MaterialTheme.colorScheme.onSurface
             )

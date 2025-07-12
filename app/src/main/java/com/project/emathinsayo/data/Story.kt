@@ -44,7 +44,7 @@ enum class Quiz(
     ADDITIONS_QUIZ1(1, "What is 23 + 15?", listOf("40", "38", "28", "33"), 2),
     ADDITIONS_QUIZ2(2, "What is 7 + 9?", listOf("16", "14", "15", "17"), 1),
     ADDITIONS_QUIZ3(3, "What is 120 + 45?", listOf("155", "165", "160", "175"), 2),
-    ADDITIONS_QUIZ4(4,"1 + 1 ", listOf("1", "2", "3", "4"), 2),
+    ADDITIONS_QUIZ4(4,"1 + 1 ", listOf("1", "2", "3", "4"), 2), // new items to be add
 
 
     // Subtractions
