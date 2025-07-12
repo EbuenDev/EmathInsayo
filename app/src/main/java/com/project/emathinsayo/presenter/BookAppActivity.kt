@@ -286,9 +286,9 @@ fun MediumTopAppBarExample( // home
 ) {
     val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior(rememberTopAppBarState())
 
-    // Detect scroll state to conditionally apply rounded corners
+
     val isCollapsed = true // Adjust this value based on how much the header should collapse
-    // Remember the state of the LazyColumn
+
     // Box to layer the image background and content
     Box(
         modifier = Modifier.fillMaxSize()
@@ -502,6 +502,14 @@ fun SubjectButton(
 ) {
     val score = scores?.get(level)
     
+    // Calculate stars based on the same logic as GameResultDialog
+    val starsToShow = when {
+        score == 15 -> 3
+        score in 10..14 -> 2
+        score != null && score > 0 -> 1
+        else -> 0
+    }
+
     // Define different color gradients for each subject
     val gradientColors = when (level) {
         "Addition" -> listOf(Color(0xFF4CAF50), Color(0xFF66BB6A)) // Green
@@ -595,7 +603,7 @@ fun SubjectButton(
                         ) {
                             repeat(3) { index ->
                                 val starColor =
-                                    if (index < score) Color(0xFFFFC107) else Color.LightGray
+                                    if (index < starsToShow) Color(0xFFFFC107) else Color.LightGray
                                 Icon(
                                     imageVector = Icons.Default.Star,
                                     contentDescription = "Star",

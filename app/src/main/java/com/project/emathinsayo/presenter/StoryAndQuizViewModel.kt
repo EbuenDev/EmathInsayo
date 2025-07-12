@@ -60,7 +60,7 @@ class StoryAndQuizViewModel @Inject constructor(
             "Addition" -> Story.ADDITIONS
             "Subtraction" -> Story.SUBTRACTIONS
             "Multiplication" -> Story.MULTIPLICATION
-            "Diviving" -> Story.DIVISION
+            "Dividing" -> Story.DIVISION
             "Addingf" -> Story.ADDITION_FRACTION
             "Subtractingf" -> Story.SUBTRACTION_FRACTION
             "Multiplyingf" -> Story.MULTIPLICATION_FRACTION

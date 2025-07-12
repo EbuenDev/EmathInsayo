@@ -74,7 +74,7 @@ class BookRepositoryImpl(private val dataStorageHelper: DataStorageHelper, priva
             "Addition" to dataStorageHelper.getValue<Int?>("Addition"),
             "Subtraction" to dataStorageHelper.getValue<Int?>("Subtraction"),
             "Multiplication" to dataStorageHelper.getValue<Int?>("Multiplication"),
-            "Dividing" to dataStorageHelper.getValue<Int?>("Dividing"),
+            "Diviving" to dataStorageHelper.getValue<Int?>("Diviving"),
             "Addingf" to dataStorageHelper.getValue<Int?>("Addingf"),
             "Subtractingf" to dataStorageHelper.getValue<Int?>("Subtractingf"),
             "Multiplyingf" to dataStorageHelper.getValue<Int?>("Multiplyingf"),

@@ -525,17 +525,17 @@ fun ExamCancellationDialog(onCancel: () -> Unit, onDismiss: () -> Unit) {
 @Preview
 @Composable
 fun GameDialogPreview() {
-    GameResultDialog(1, {}, {},4)
+    GameResultDialog(1, {}, {},15)
 }
 
 @Composable
 fun GameResultDialog(score: Int, onHomeClick: () -> Unit, onPlayClick: () -> Unit, quizItem: Int) {
 
-    val calculatedScore: Int = (score/quizItem)*3
+    val calculatedScore: Int = score // Use the raw score directly
     val (starsEarned, label, bannerColor) = when {
-        calculatedScore >= 3 -> Triple(3, "EXCELLENT", Color(0xFF4CAF50))
-        calculatedScore >= 2 -> Triple(2, "   GOOD   ", Color(0xFFFF9800))
-        else ->       Triple(1, "  FAILED  ", Color(0xFFF44336))
+        calculatedScore == 15 -> Triple(3, "EXCELLENT", Color(0xFF4CAF50))
+        calculatedScore in 10..14 -> Triple(2, "   GOOD   ", Color(0xFFFF9800))
+        else -> Triple(1, "  FAILED  ", Color(0xFFF44336))
     }
 
     Box(
