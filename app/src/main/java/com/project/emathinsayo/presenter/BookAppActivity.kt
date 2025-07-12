@@ -73,6 +73,10 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalView
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.Font
+import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.googlefonts.Font
+import androidx.compose.ui.text.googlefonts.GoogleFont
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
@@ -781,62 +785,246 @@ fun AboutPage() {
             .verticalScroll(scrollState)
             .background(MaterialTheme.colorScheme.background)
             .padding(start = 16.dp, top = 60.dp, bottom = 200.dp, end = 16.dp)
-
     ) {
-        // Header Section
-        Text(
-            text = "About E-MathInsayo",
-            style = MaterialTheme.typography.headlineLarge,
-            color = MainColorUtils.primary,
+        // Header with custom font
+        Row(
+            verticalAlignment = Alignment.CenterVertically,
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(bottom = 8.dp)
-        )
+                .padding(bottom = 16.dp)
+        ) {
+            Text(
+                text = "👋 ",
+                fontSize = 32.sp,
+                fontFamily = childFriendlyFont
+            )
+            Text(
+                text = "About E-MathInsayo",
+                style = MaterialTheme.typography.headlineLarge.copy(
+                    fontFamily = childFriendlyFont
+                ),
+                color = MainColorUtils.primary,
+                fontWeight = FontWeight.Bold
+            )
+            Text(
+                text = " 🌟",
+                fontSize = 32.sp,
+                fontFamily = childFriendlyFont
+            )
+        }
 
-        // Decorative Divider
-        Divider(
-            color = MainColorUtils.primary.copy(alpha = 0.5f),
-            thickness = 2.dp,
-            modifier = Modifier.padding(vertical = 16.dp)
-        )
+        // Apply font to all text elements
+        Card(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(bottom = 16.dp),
+            elevation = CardDefaults.cardElevation(8.dp),
+            colors = CardDefaults.cardColors(containerColor = Color(0xFFE3F2FD))
+        ) {
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(20.dp)
+            ) {
+                Text(
+                    text = "🎯 What is E-MathInsayo?",
+                    fontSize = 20.sp,
+                    style = MaterialTheme.typography.titleMedium.copy(
+                        fontFamily = childFriendlyFont
+                    ),
+                    color = MainColorUtils.primary,
+                    fontWeight = FontWeight.Bold,
+                    modifier = Modifier.padding(bottom = 12.dp)
+                )
+                Text(
+                    text = "E-MathInsayo is your fun math buddy! 🎉✨ We help you learn math in the most exciting way possible...",
+                    fontSize = 16.sp,
+                    style = MaterialTheme.typography.bodyMedium.copy(
+                        fontFamily = childFriendlyFont
+                    ),
+                    color = MaterialTheme.colorScheme.onBackground,
+                    lineHeight = 24.sp
+                )
+            }
+        }
+        
+        // Mission Card
+        Card(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(bottom = 16.dp),
+            elevation = CardDefaults.cardElevation(8.dp),
+            colors = CardDefaults.cardColors(containerColor = Color(0xFFF3E5F5))
+        ) {
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(20.dp)
+            ) {
+                Text(
+                    text = "🚀 Our Mission",
+                    fontSize = 20.sp,
+                    style = MaterialTheme.typography.titleMedium.copy(
+                        fontFamily = childFriendlyFont
+                    ),
+                    color = MainColorUtils.primary,
+                    fontWeight = FontWeight.Bold,
+                    modifier = Modifier.padding(bottom = 12.dp)
+                )
+                Text(
+                    text = "We want to make math your favorite subject! 📚💖 Our team of friendly teachers from Mabini Colleges Inc. created this app to help you become a math superstar. Learning should be fun, and that's exactly what we're here for!",
+                    fontSize = 16.sp,
+                    style = MaterialTheme.typography.bodyMedium.copy(
+                        fontFamily = childFriendlyFont
+                    ),
+                    color = MaterialTheme.colorScheme.onBackground,
+                    lineHeight = 24.sp
+                )
+            }
+        }
 
-        // Project Description
+        // Team Section with Fun Icons
         Text(
-            text = """
-                E-MathInsayo is a mobile-based learning app designed to enhance the mathematical comprehension of Grade 6 learners, especially in mastering basic operations and key areas in mathematics. This app serves as an innovative intervention tool that supports learners in improving their math skills through guided tutorials and interactive activities.
-                
-                We are 3rd year college students from Mabini Colleges Inc., taking the course Bachelor of Elementary Education. Our mission is to make math learning fun, interactive, and accessible for all. E-MathInsayo provides engaging exercises and step-by-step tutorials to help learners build confidence and cope with mathematical challenges at their own pace.
-                
-                Together, let’s make learning math a joyful and meaningful experience!
-                """.trimIndent(),
-            fontSize = 20.sp,
-            style = MaterialTheme.typography.bodyMedium,
-            color = MaterialTheme.colorScheme.onBackground,
+            text = "👥 Meet Our Amazing Team",
+            style = MaterialTheme.typography.headlineMedium,
+            color = MainColorUtils.primary,
+            fontWeight = FontWeight.Bold,
             modifier = Modifier.padding(bottom = 16.dp)
         )
 
-        // Team Members Section
-        Text(
-            text = "TEAM MEMBERS",
-            style = MaterialTheme.typography.headlineMedium,
-            color = MainColorUtils.primary,
-            modifier = Modifier.padding(bottom = 8.dp)
-        )
-        TeamMembersCard()
+        Card(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(bottom = 16.dp),
+            elevation = CardDefaults.cardElevation(8.dp),
+            colors = CardDefaults.cardColors(containerColor = Color(0xFFE8F5E8))
+        ) {
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(20.dp)
+            ) {
+                Text(
+                    text = "🎓 Our Super Team Members",
+                    fontSize = 18.sp,
+                    style = MaterialTheme.typography.titleSmall,
+                    color = MainColorUtils.primary,
+                    fontWeight = FontWeight.Bold,
+                    modifier = Modifier.padding(bottom = 12.dp)
+                )
+                
+                val teamMembers = listOf(
+                    "🌟 Bea S. Buenavente",
+                    "👋 Loren Y. Todenio", 
+                    "👩‍🎓 Daniela A. Samonte",
+                    "👩‍🎓 Emmanuel Toledo",
+                    "👦 John Lloyd Ladea"
+                )
+                
+                teamMembers.forEach { member ->
+                    Text(
+                        text = member,
+                        fontSize = 16.sp,
+                        style = MaterialTheme.typography.bodyMedium,
+                        color = MaterialTheme.colorScheme.onSurface,
+                        modifier = Modifier.padding(vertical = 4.dp)
+                    )
+                }
+            }
+        }
 
-        // Department & Course Section
-        SectionWithIcon(
-            icon = Icons.Default.Place,
-            title = "Department",
-            content = "College of Education"
-        )
+        // School Information Cards
+        Card(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(bottom = 16.dp),
+            elevation = CardDefaults.cardElevation(8.dp),
+            colors = CardDefaults.cardColors(containerColor = Color(0xFFFFF3E0))
+        ) {
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(20.dp)
+            ) {
+                Text(
+                    text = "🏫 Our School",
+                    fontSize = 18.sp,
+                    style = MaterialTheme.typography.titleSmall,
+                    color = MainColorUtils.primary,
+                    fontWeight = FontWeight.Bold,
+                    modifier = Modifier.padding(bottom = 8.dp)
+                )
+                Text(
+                    text = "Mabini Colleges, Inc.",
+                    fontSize = 16.sp,
+                    style = MaterialTheme.typography.bodyMedium,
+                    color = MaterialTheme.colorScheme.onSurface
+                )
+            }
+        }
 
-        // School Information
-        SectionWithIcon(
-            icon = Icons.Default.Place,
-            title = "School",
-            content = "Mabini Colleges, Inc."
-        )
+        Card(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(bottom = 16.dp),
+            elevation = CardDefaults.cardElevation(8.dp),
+            colors = CardDefaults.cardColors(containerColor = Color(0xFFE0F2F1))
+        ) {
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(20.dp)
+            ) {
+                Text(
+                    text = "📚 Our Department",
+                    fontSize = 18.sp,
+                    style = MaterialTheme.typography.titleSmall,
+                    color = MainColorUtils.primary,
+                    fontWeight = FontWeight.Bold,
+                    modifier = Modifier.padding(bottom = 8.dp)
+                )
+                Text(
+                    text = "College of Education",
+                    fontSize = 16.sp,
+                    style = MaterialTheme.typography.bodyMedium,
+                    color = MaterialTheme.colorScheme.onSurface
+                )
+            }
+        }
+
+        // Fun Closing Message
+        Card(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(bottom = 16.dp),
+            elevation = CardDefaults.cardElevation(8.dp),
+            colors = CardDefaults.cardColors(containerColor = Color(0xFFFFEBEE))
+        ) {
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(20.dp),
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                Text(
+                    text = "🎉 Ready to become a Math Champion?",
+                    fontSize = 18.sp,
+                    style = MaterialTheme.typography.titleSmall,
+                    color = MainColorUtils.primary,
+                    fontWeight = FontWeight.Bold,
+                    textAlign = TextAlign.Center,
+                    modifier = Modifier.padding(bottom = 8.dp)
+                )
+                Text(
+                    text = "Let's make learning math the most exciting adventure! 🌈✨",
+                    fontSize = 16.sp,
+                    style = MaterialTheme.typography.bodyMedium,
+                    color = MaterialTheme.colorScheme.onSurface,
+                    textAlign = TextAlign.Center,
+                    lineHeight = 24.sp
+                )
+            }
+        }
     }
 }
 
