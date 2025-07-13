@@ -135,6 +135,9 @@ dependencies {
     // SQLite
     implementation(libs.sqlite)
 
+    //font
+//    implementation("androidx.compose.ui:ui-text-google-fonts:1.8.0")
+
     implementation(libs.media3.exoplayer)
     implementation(libs.media3.ui)
 

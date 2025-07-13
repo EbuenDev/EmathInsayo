@@ -1,5 +1,7 @@
 package com.project.emathinsayo.presenter
 
+import android.R.attr.fontFamily
+import android.R.attr.fontWeight
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
@@ -72,12 +74,12 @@ import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalView
+import androidx.compose.ui.res.fontResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
-import androidx.compose.ui.text.googlefonts.Font
-import androidx.compose.ui.text.googlefonts.GoogleFont
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.font.FontWeight.Companion.Bold
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
@@ -662,7 +664,7 @@ fun SubjectButton(
 fun CuteImage(icon: Painter, modifier: Modifier = Modifier) {
     Image(painter = icon, contentDescription = null, modifier = modifier)
 }
-@Preview
+
 @Composable
 fun SubjectButtonPreview() {
     SubjectButton(R.drawable.plus, "Addition", {}, "", null, {})
@@ -775,9 +777,18 @@ fun FavoritesBooksItems(books: List<String>) {
     }
 }
 
+
 @Composable
 fun AboutPage() {
     val scrollState = rememberScrollState()
+    
+    // Create local variable for the font
+    val fredokaCondensedFont = FontFamily(
+        Font(R.font.fredoka_condensed_regular, FontWeight.Normal),
+        Font(R.font.fredoka_condensed_bold, FontWeight.Bold),
+        Font(R.font.fredoka_condensed_light, FontWeight.Light),
+        Font(R.font.fredoka_condensed_medium, FontWeight.Medium)
+    )
 
     Column(
         modifier = Modifier
@@ -786,30 +797,21 @@ fun AboutPage() {
             .background(MaterialTheme.colorScheme.background)
             .padding(start = 16.dp, top = 60.dp, bottom = 200.dp, end = 16.dp)
     ) {
-        // Header with custom font
-        Row(
-            verticalAlignment = Alignment.CenterVertically,
+        // Header with custom font - centered
+        Column(
+            horizontalAlignment = Alignment.CenterHorizontally,
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(bottom = 16.dp)
         ) {
             Text(
-                text = "👋 ",
-                fontSize = 32.sp,
-                fontFamily = childFriendlyFont
-            )
-            Text(
-                text = "About E-MathInsayo",
+                text = "👋About E-MathInsayo🌟 ",
                 style = MaterialTheme.typography.headlineLarge.copy(
-                    fontFamily = childFriendlyFont
+                    fontFamily = fredokaCondensedFont
                 ),
                 color = MainColorUtils.primary,
-                fontWeight = FontWeight.Bold
-            )
-            Text(
-                text = " 🌟",
-                fontSize = 32.sp,
-                fontFamily = childFriendlyFont
+                fontWeight = FontWeight.Bold,
+                textAlign = TextAlign.Center
             )
         }
 
@@ -830,7 +832,7 @@ fun AboutPage() {
                     text = "🎯 What is E-MathInsayo?",
                     fontSize = 20.sp,
                     style = MaterialTheme.typography.titleMedium.copy(
-                        fontFamily = childFriendlyFont
+                        fontFamily = fredokaCondensedFont
                     ),
                     color = MainColorUtils.primary,
                     fontWeight = FontWeight.Bold,
@@ -840,7 +842,7 @@ fun AboutPage() {
                     text = "E-MathInsayo is your fun math buddy! 🎉✨ We help you learn math in the most exciting way possible...",
                     fontSize = 16.sp,
                     style = MaterialTheme.typography.bodyMedium.copy(
-                        fontFamily = childFriendlyFont
+                        fontFamily = fredokaCondensedFont
                     ),
                     color = MaterialTheme.colorScheme.onBackground,
                     lineHeight = 24.sp
@@ -865,7 +867,7 @@ fun AboutPage() {
                     text = "🚀 Our Mission",
                     fontSize = 20.sp,
                     style = MaterialTheme.typography.titleMedium.copy(
-                        fontFamily = childFriendlyFont
+                        fontFamily = fredokaCondensedFont
                     ),
                     color = MainColorUtils.primary,
                     fontWeight = FontWeight.Bold,
@@ -875,7 +877,7 @@ fun AboutPage() {
                     text = "We want to make math your favorite subject! 📚💖 Our team of friendly teachers from Mabini Colleges Inc. created this app to help you become a math superstar. Learning should be fun, and that's exactly what we're here for!",
                     fontSize = 16.sp,
                     style = MaterialTheme.typography.bodyMedium.copy(
-                        fontFamily = childFriendlyFont
+                        fontFamily = fredokaCondensedFont
                     ),
                     color = MaterialTheme.colorScheme.onBackground,
                     lineHeight = 24.sp
@@ -888,6 +890,7 @@ fun AboutPage() {
             text = "👥 Meet Our Amazing Team",
             style = MaterialTheme.typography.headlineMedium,
             color = MainColorUtils.primary,
+            fontFamily = fredokaCondensedFont,
             fontWeight = FontWeight.Bold,
             modifier = Modifier.padding(bottom = 16.dp)
         )
@@ -909,6 +912,7 @@ fun AboutPage() {
                     fontSize = 18.sp,
                     style = MaterialTheme.typography.titleSmall,
                     color = MainColorUtils.primary,
+                    fontFamily = fredokaCondensedFont,
                     fontWeight = FontWeight.Bold,
                     modifier = Modifier.padding(bottom = 12.dp)
                 )
@@ -925,6 +929,7 @@ fun AboutPage() {
                     Text(
                         text = member,
                         fontSize = 16.sp,
+                        fontFamily = fredokaCondensedFont,
                         style = MaterialTheme.typography.bodyMedium,
                         color = MaterialTheme.colorScheme.onSurface,
                         modifier = Modifier.padding(vertical = 4.dp)
@@ -951,12 +956,14 @@ fun AboutPage() {
                     fontSize = 18.sp,
                     style = MaterialTheme.typography.titleSmall,
                     color = MainColorUtils.primary,
+                    fontFamily = fredokaCondensedFont,
                     fontWeight = FontWeight.Bold,
                     modifier = Modifier.padding(bottom = 8.dp)
                 )
                 Text(
                     text = "Mabini Colleges, Inc.",
                     fontSize = 16.sp,
+                    fontFamily = fredokaCondensedFont,
                     style = MaterialTheme.typography.bodyMedium,
                     color = MaterialTheme.colorScheme.onSurface
                 )
@@ -980,12 +987,14 @@ fun AboutPage() {
                     fontSize = 18.sp,
                     style = MaterialTheme.typography.titleSmall,
                     color = MainColorUtils.primary,
+                    fontFamily = fredokaCondensedFont,
                     fontWeight = FontWeight.Bold,
                     modifier = Modifier.padding(bottom = 8.dp)
                 )
                 Text(
                     text = "College of Education",
                     fontSize = 16.sp,
+                    fontFamily = fredokaCondensedFont,
                     style = MaterialTheme.typography.bodyMedium,
                     color = MaterialTheme.colorScheme.onSurface
                 )
@@ -1011,6 +1020,7 @@ fun AboutPage() {
                     fontSize = 18.sp,
                     style = MaterialTheme.typography.titleSmall,
                     color = MainColorUtils.primary,
+                    fontFamily = fredokaCondensedFont,
                     fontWeight = FontWeight.Bold,
                     textAlign = TextAlign.Center,
                     modifier = Modifier.padding(bottom = 8.dp)
@@ -1018,6 +1028,7 @@ fun AboutPage() {
                 Text(
                     text = "Let's make learning math the most exciting adventure! 🌈✨",
                     fontSize = 16.sp,
+                    fontFamily = fredokaCondensedFont,
                     style = MaterialTheme.typography.bodyMedium,
                     color = MaterialTheme.colorScheme.onSurface,
                     textAlign = TextAlign.Center,
