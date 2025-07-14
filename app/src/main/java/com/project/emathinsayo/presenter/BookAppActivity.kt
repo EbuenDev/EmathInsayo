@@ -53,6 +53,7 @@ import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Divider
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
+import androidx.compose.material3.ListItemDefaults.contentColor
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedCard
 import androidx.compose.material3.Scaffold
@@ -292,6 +293,12 @@ fun MediumTopAppBarExample( // home
 ) {
     val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior(rememberTopAppBarState())
 
+    val fredokaCondensedFont = FontFamily(
+        Font(R.font.fredoka_condensed_regular, FontWeight.Normal),
+        Font(R.font.fredoka_condensed_bold, FontWeight.Bold),
+        Font(R.font.fredoka_condensed_light, FontWeight.Light),
+        Font(R.font.fredoka_condensed_medium, FontWeight.Medium)
+    )
 
     val isCollapsed = true // Adjust this value based on how much the header should collapse
 
@@ -336,6 +343,8 @@ fun MediumTopAppBarExample( // home
                             Text(
                                 "Hi ${user?.name.orEmpty()}!",
                                 maxLines = 1,
+                                fontFamily = fredokaCondensedFont,
+                                fontSize = 40.sp,
                                 overflow = TextOverflow.Ellipsis,
                                 color = Color.White
                             )
@@ -367,7 +376,7 @@ fun MediumTopAppBarExample( // home
                     LazyColumn (Modifier.fillMaxSize()) {
                         item {
                             SubjectButton(
-                                R.drawable.plus,
+                                R.drawable.addition_sign,
                                 "Addition",
                                 onLessonClick,
                                 "Addition",
@@ -377,7 +386,7 @@ fun MediumTopAppBarExample( // home
                         }
                         item {
                             SubjectButton(
-                                R.drawable.minus,
+                                R.drawable.subtraction_sign,
                                 "Subtraction",
                                 onLessonClick,
                                 "Subtraction",
@@ -387,7 +396,7 @@ fun MediumTopAppBarExample( // home
                         }
                         item {
                             SubjectButton(
-                                R.drawable.multiplication,
+                                R.drawable.multiplication_sign,
                                 "Multiplication",
                                 onLessonClick,
                                 "Multiplication",
@@ -397,7 +406,7 @@ fun MediumTopAppBarExample( // home
                         }
                         item {
                             SubjectButton(
-                                R.drawable.divide,
+                                R.drawable.division_sign,
                                 "Division",
                                 onLessonClick,
                                 "Diviving",
@@ -407,7 +416,7 @@ fun MediumTopAppBarExample( // home
                         }
                         item {
                             SubjectButton(
-                                R.drawable.pie_chart,
+                                R.drawable.adding_fraction_sign,
                                 "Adding Fractions",
                                 onLessonClick,
                                 "Addingf",
@@ -417,7 +426,7 @@ fun MediumTopAppBarExample( // home
                         }
                         item {
                             SubjectButton(
-                                R.drawable.pie_chart,
+                                R.drawable.subtracting_fraction_sign,
                                 "Subtracting Fractions",
                                 onLessonClick,
                                 "Subtractingf",
@@ -427,7 +436,7 @@ fun MediumTopAppBarExample( // home
                         }
                         item {
                             SubjectButton(
-                                R.drawable.pie_chart,
+                                R.drawable.multiplying_decimals_sign,
                                 "Multiplying Fractions",
                                 onLessonClick,
                                 "Multiplyingf",
@@ -437,7 +446,7 @@ fun MediumTopAppBarExample( // home
                         }
                         item {
                             SubjectButton(
-                                R.drawable.pie_chart,
+                                R.drawable.dividing_fraction_sign,
                                 "Dividing Fractions",
                                 onLessonClick,
                                 "Dividingf",
@@ -447,7 +456,7 @@ fun MediumTopAppBarExample( // home
                         }
                         item {
                             SubjectButton(
-                                R.drawable.decimal,
+                                R.drawable.adding_and_subtracting_decimals_sign,
                                 "Adding and Subtracting Decimals",
                                 onLessonClick,
                                 "Addsubd",
@@ -457,7 +466,7 @@ fun MediumTopAppBarExample( // home
                         }
                         item {
                             SubjectButton(
-                                R.drawable.decimal,
+                                R.drawable.multiplying_decimals_sign,
                                 "Multiplying Decimals",
                                 onLessonClick,
                                 "Multiplyingd",
@@ -467,7 +476,7 @@ fun MediumTopAppBarExample( // home
                         }
                         item {
                             SubjectButton(
-                                R.drawable.decimal,
+                                R.drawable.dividing_decimals_sign,
                                 "Dividing Decimals",
                                 onLessonClick,
                                 "Dived",
@@ -477,7 +486,7 @@ fun MediumTopAppBarExample( // home
                         }
                         item {
                             SubjectButton(
-                                R.drawable.quiz,
+                                R.drawable.final_exam_sign,
                                 "Take final Quiz",
                                 onLessonClick,
                                 "Takefinalquiz",
@@ -786,7 +795,7 @@ fun FavoritesBooksItems(books: List<String>) {
     }
 }
 
-
+@Preview
 @Composable
 fun AboutPage() {
     val scrollState = rememberScrollState()
@@ -815,6 +824,7 @@ fun AboutPage() {
         ) {
             Text(
                 text = "👋About E-MathInsayo🌟 ",
+                fontSize = 30.sp,
                 style = MaterialTheme.typography.headlineLarge.copy(
                     fontFamily = fredokaCondensedFont
                 ),
@@ -839,7 +849,7 @@ fun AboutPage() {
             ) {
                 Text(
                     text = "🎯 What is E-MathInsayo?",
-                    fontSize = 20.sp,
+                    fontSize = 25.sp,
                     style = MaterialTheme.typography.titleMedium.copy(
                         fontFamily = fredokaCondensedFont
                     ),
@@ -849,7 +859,7 @@ fun AboutPage() {
                 )
                 Text(
                     text = "E-MathInsayo is your fun math buddy! 🎉✨ We help you learn math in the most exciting way possible...",
-                    fontSize = 16.sp,
+                    fontSize = 18.sp,
                     style = MaterialTheme.typography.bodyMedium.copy(
                         fontFamily = fredokaCondensedFont
                     ),
@@ -874,7 +884,7 @@ fun AboutPage() {
             ) {
                 Text(
                     text = "🚀 Our Mission",
-                    fontSize = 20.sp,
+                    fontSize = 25.sp,
                     style = MaterialTheme.typography.titleMedium.copy(
                         fontFamily = fredokaCondensedFont
                     ),
@@ -884,7 +894,7 @@ fun AboutPage() {
                 )
                 Text(
                     text = "We want to make math your favorite subject! 📚💖 Our team of friendly teachers from Mabini Colleges Inc. created this app to help you become a math superstar. Learning should be fun, and that's exactly what we're here for!",
-                    fontSize = 16.sp,
+                    fontSize = 18.sp,
                     style = MaterialTheme.typography.bodyMedium.copy(
                         fontFamily = fredokaCondensedFont
                     ),
@@ -918,7 +928,7 @@ fun AboutPage() {
             ) {
                 Text(
                     text = "🎓 Our Super Team Members",
-                    fontSize = 18.sp,
+                    fontSize = 23.sp,
                     style = MaterialTheme.typography.titleSmall,
                     color = MainColorUtils.primary,
                     fontFamily = fredokaCondensedFont,
@@ -929,15 +939,15 @@ fun AboutPage() {
                 val teamMembers = listOf(
                     "🌟 Bea S. Buenavente",
                     "👋 Loren Y. Todenio", 
-                    "👩‍🎓 Daniela A. Samonte",
-                    "👩‍🎓 Emmanuel Toledo",
+                    "👩 Daniela A. Samonte",
+                    "👦 Emmanuel Toledo",
                     "👦 John Lloyd Ladea"
                 )
                 
                 teamMembers.forEach { member ->
                     Text(
                         text = member,
-                        fontSize = 16.sp,
+                        fontSize = 18.sp,
                         fontFamily = fredokaCondensedFont,
                         style = MaterialTheme.typography.bodyMedium,
                         color = MaterialTheme.colorScheme.onSurface,
@@ -962,7 +972,7 @@ fun AboutPage() {
             ) {
                 Text(
                     text = "🏫 Our School",
-                    fontSize = 18.sp,
+                    fontSize = 23.sp,
                     style = MaterialTheme.typography.titleSmall,
                     color = MainColorUtils.primary,
                     fontFamily = fredokaCondensedFont,
@@ -971,7 +981,7 @@ fun AboutPage() {
                 )
                 Text(
                     text = "Mabini Colleges, Inc.",
-                    fontSize = 16.sp,
+                    fontSize = 18.sp,
                     fontFamily = fredokaCondensedFont,
                     style = MaterialTheme.typography.bodyMedium,
                     color = MaterialTheme.colorScheme.onSurface
@@ -993,7 +1003,7 @@ fun AboutPage() {
             ) {
                 Text(
                     text = "📚 Our Department",
-                    fontSize = 18.sp,
+                    fontSize = 23.sp,
                     style = MaterialTheme.typography.titleSmall,
                     color = MainColorUtils.primary,
                     fontFamily = fredokaCondensedFont,
@@ -1002,7 +1012,7 @@ fun AboutPage() {
                 )
                 Text(
                     text = "College of Education",
-                    fontSize = 16.sp,
+                    fontSize = 18.sp,
                     fontFamily = fredokaCondensedFont,
                     style = MaterialTheme.typography.bodyMedium,
                     color = MaterialTheme.colorScheme.onSurface
@@ -1026,7 +1036,7 @@ fun AboutPage() {
             ) {
                 Text(
                     text = "🎉 Ready to become a Math Champion?",
-                    fontSize = 18.sp,
+                    fontSize = 25.sp,
                     style = MaterialTheme.typography.titleSmall,
                     color = MainColorUtils.primary,
                     fontFamily = fredokaCondensedFont,
@@ -1036,7 +1046,7 @@ fun AboutPage() {
                 )
                 Text(
                     text = "Let's make learning math the most exciting adventure! 🌈✨",
-                    fontSize = 16.sp,
+                    fontSize = 18.sp,
                     fontFamily = fredokaCondensedFont,
                     style = MaterialTheme.typography.bodyMedium,
                     color = MaterialTheme.colorScheme.onSurface,
