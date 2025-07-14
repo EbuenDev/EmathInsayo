@@ -46,6 +46,7 @@ import androidx.compose.ui.platform.ViewCompositionStrategy
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.core.view.drawToBitmap
@@ -76,7 +77,7 @@ class ExamResult : ComponentActivity() {
 @Composable
 fun ExamResultContent(score: Int?, profile: UserProfile?, level: String?) {
     val context = LocalContext.current
-    val items = 10
+    val items = if (level == "Takefinalquiz") 15 else 10
     val percentage = ((score?.toDouble() ?: 0.0) / items) * 100
     val isPassed = percentage >= 75
     val image = if (isPassed) R.drawable.celeb else R.drawable.sadf
@@ -247,7 +248,7 @@ fun ResultContent(
             )
 
             Spacer(Modifier.height(16.dp))
-            val items = 10
+            val items = 15
 
             Text(
                 text = "${score ?: 0}/$items",
@@ -260,7 +261,7 @@ fun ResultContent(
             Spacer(Modifier.height(16.dp))
 
             val message = if (isPassed) {
-                "You passed the final quiz with ${"%.2f".format(percentage)}%!"
+                "🌟You passed the final quiz with ${"%.2f".format(percentage)}%!"
             } else {
                 "You failed the the final quiz with ${"%.2f".format(percentage)}%. Don't give up — try again!"
             }

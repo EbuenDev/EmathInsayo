@@ -148,7 +148,7 @@ class StoryAndQuizViewModel @Inject constructor(
 
             when (level) {
                 "Takefinalquiz" -> {
-                    if (currentQuiz.value == 9) { // Last question (0-based index)
+                    if (currentQuiz.value == shuffledQuizList.value.size - 1) { // Last question
                         score.value?.let { bookRepository.updateScore(it, level.toString()) }
                     }
                 }

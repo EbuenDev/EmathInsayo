@@ -73,7 +73,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.project.emathinsayo.R
 import com.project.emathinsayo.common.MainColorUtils
-import com.project.emathinsayo.data.Quiz
 import com.project.emathinsayo.data.Story
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -261,6 +260,19 @@ fun StoryAndQuizContent(
                     verticalArrangement = Arrangement.Center,
                     modifier = Modifier.padding(16.dp),
                 ) {
+
+                    // Always show instruction
+                    Text(
+                        text = "Instructions: Choose the correct answer for each problem. Remember to simplify your answers when possible!",
+                        style = MaterialTheme.typography.bodyMedium,
+                        fontFamily = fredokaCondensedFont,
+                        fontWeight = FontWeight.Medium,
+                        fontSize = 19.sp,
+                        color = Color(0xFF2C3E50),
+                        modifier = Modifier.padding(top = 8.dp, bottom = 8.dp)
+                    )
+
+
                     val questionNumber = currentQuiz + 1 // Show 1-based question number
                     Text(
                         text = "Question#$questionNumber",
@@ -268,6 +280,9 @@ fun StoryAndQuizContent(
                         style = MaterialTheme.typography.titleLarge,
                         textAlign = TextAlign.Center
                     )
+
+                    // Show instruction only for the first question
+
 
                     Text(
                         text = quiz.question,
@@ -431,10 +446,7 @@ fun StoryAndQuizContent(
 
             Spacer(Modifier.height(16.dp))
 
-            val lastNumber = when (level) {
-                "Takefinalquiz" -> 10
-                else -> quizItem
-            }
+            val lastNumber = quizItem
 
             val buttonText = when {
                 answerStatus is AnswerStatus.None -> "Submit Answer"
@@ -544,7 +556,7 @@ fun ExamCancellationDialog(onCancel: () -> Unit, onDismiss: () -> Unit) {
     )
 }
 
-@Preview
+
 @Composable
 fun GameDialogPreview() {
     GameResultDialog(1, {}, {},15)
@@ -661,7 +673,6 @@ fun GameResultDialog(score: Int, onHomeClick: () -> Unit, onPlayClick: () -> Uni
 
 
 @Composable
-@Preview
 fun StoryAndQuizContentPreview() {
     StoryAndQuizContent(
         Story.ADDITIONS,

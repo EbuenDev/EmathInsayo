@@ -14,8 +14,17 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.font.Font
+import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
+import com.project.emathinsayo.R
+import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.unit.sp
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.tooling.preview.Preview
+
 
 @AndroidEntryPoint
 class WebviewActivity : ComponentActivity() {
@@ -48,6 +57,10 @@ class WebviewActivity : ComponentActivity() {
 fun LessonWithQuizScreen(link: String, onQuizClicked: () -> Unit) {
     // Visibility state for button
     val showButton = remember { mutableStateOf(false) }
+    val fredokaCondensedFont = FontFamily(
+        Font(com.project.emathinsayo.R.font.fredoka_condensed_bold, FontWeight.Bold),
+        Font(R.font.fredoka_condensed_medium, FontWeight.Medium)
+    )
 
     Scaffold(
         bottomBar = {
@@ -57,8 +70,28 @@ fun LessonWithQuizScreen(link: String, onQuizClicked: () -> Unit) {
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(16.dp)
+                        .height(56.dp), // Make button taller
+                    colors = ButtonDefaults.buttonColors(
+                        containerColor = Color(0xFFFFEB3B), // Yellow
+                        contentColor = Color.Black // Black text for contrast
+                    ),
+                    elevation = ButtonDefaults.buttonElevation(
+                        defaultElevation = 8.dp,
+                        pressedElevation = 12.dp
+                    )
                 ) {
-                    Text("Take Quiz")
+                    Text(
+                        text = "🔥TAKE QUIZ🔥",
+                        style = LocalTextStyle.current.copy(
+                            fontWeight = FontWeight.Bold,
+                            fontSize = 18.sp,
+                            fontFamily = fredokaCondensedFont,
+                            letterSpacing = 2.sp
+                        ),
+                        modifier = Modifier,
+                        maxLines = 1,
+                        overflow = TextOverflow.Ellipsis
+                    )
                 }
             }
         }

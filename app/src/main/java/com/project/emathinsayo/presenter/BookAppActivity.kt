@@ -566,7 +566,8 @@ fun SubjectButton(
                     .padding(horizontal = 16.dp, vertical = 16.dp)
             ) {
                 Column(modifier = Modifier.weight(1f)) {
-                    Row(verticalAlignment = Alignment.CenterVertically) {
+                    // Change Row to Column for title and 'Taken' badge
+                    Column(modifier = Modifier.padding(top = 8.dp, start = 16.dp)) {
                         Text(
                             text = title,
                             fontFamily = fredokaCondensedFont,
@@ -574,13 +575,12 @@ fun SubjectButton(
                             fontSize = 30.sp,
                             style = MaterialTheme.typography.titleLarge,
                             color = Color.White,
-                            modifier = Modifier.padding(top = 8.dp, start = 16.dp)
                         )
 
                         if (score != null) {
                             OutlinedCard(
                                 colors = CardDefaults.cardColors(containerColor = Color(0xFF49AFDC)),
-                                modifier = Modifier.padding(start = 6.dp, end = 4.dp, top = 9.dp)
+                                modifier = Modifier.padding(top = 4.dp)
                             ) {
                                 Row(
                                     horizontalArrangement = Arrangement.Center,
