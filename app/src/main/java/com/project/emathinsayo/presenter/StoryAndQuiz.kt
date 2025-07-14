@@ -278,7 +278,10 @@ fun StoryAndQuizContent(
                         text = "Question#$questionNumber",
                         fontFamily = fredokaCondensedFont,
                         style = MaterialTheme.typography.titleLarge,
-                        textAlign = TextAlign.Center
+                        fontWeight = FontWeight.Bold,
+                        fontSize = 27.sp,
+                        textAlign = TextAlign.Center,
+                        color = Color(0xFF22BB33) // Dark green for visibility
                     )
 
                     // Show instruction only for the first question
@@ -671,7 +674,7 @@ fun GameResultDialog(score: Int, onHomeClick: () -> Unit, onPlayClick: () -> Uni
 
 
 
-
+@Preview
 @Composable
 fun StoryAndQuizContentPreview() {
     StoryAndQuizContent(
