@@ -5,10 +5,10 @@ import androidx.annotation.DrawableRes
 enum class Story(
     val id: Int,
     @DrawableRes val image: Int? = null,
-    val quiz: List<Quiz>,
+    private val originalQuiz: List<Quiz>,
     var nextStory: Story? = null
 ) {
-    ADDITIONS(1, quiz = listOf(
+    ADDITIONS(1, originalQuiz = listOf(
         Quiz.ADDITIONS_QUIZ1,
         Quiz.ADDITIONS_QUIZ2,
         Quiz.ADDITIONS_QUIZ3,
@@ -25,7 +25,7 @@ enum class Story(
         Quiz.ADDITIONS_QUIZ14,
         Quiz.ADDITIONS_QUIZ15
     )),
-    SUBTRACTIONS(2, quiz = listOf(
+    SUBTRACTIONS(2, originalQuiz = listOf(
         Quiz.SUBTRACTION_QUIZ1,
         Quiz.SUBTRACTION_QUIZ2,
         Quiz.SUBTRACTION_QUIZ3,
@@ -42,7 +42,7 @@ enum class Story(
         Quiz.SUBTRACTION_QUIZ14,
         Quiz.SUBTRACTION_QUIZ15
     )),
-    MULTIPLICATION(3, quiz = listOf(
+    MULTIPLICATION(3, originalQuiz = listOf(
         Quiz.MULTIPLICATION_QUIZ1,
         Quiz.MULTIPLICATION_QUIZ2,
         Quiz.MULTIPLICATION_QUIZ3,
@@ -59,7 +59,7 @@ enum class Story(
         Quiz.MULTIPLICATION_QUIZ14,
         Quiz.MULTIPLICATION_QUIZ15
     )),
-    DIVISION(4, quiz = listOf(
+    DIVISION(4, originalQuiz = listOf(
         Quiz.DIVISION_QUIZ1,
         Quiz.DIVISION_QUIZ2,
         Quiz.DIVISION_QUIZ3,
@@ -76,14 +76,14 @@ enum class Story(
         Quiz.DIVISION_QUIZ14,
         Quiz.DIVISION_QUIZ15
     )),
-    ADDITION_FRACTION(5, quiz = listOf(Quiz.ADDITION_FRACTION_QUIZ1, Quiz.ADDITION_FRACTION_QUIZ2, Quiz.ADDITION_FRACTION_QUIZ3)),
-    SUBTRACTION_FRACTION(6, quiz = listOf(Quiz.SUBTRACTION_FRACTION_QUIZ1, Quiz.SUBTRACTION_FRACTION_QUIZ2, Quiz.SUBTRACTION_FRACTION_QUIZ3)),
-    MULTIPLICATION_FRACTION(7, quiz = listOf(Quiz.MULTIPLICATION_FRACTION_QUIZ1, Quiz.MULTIPLICATION_FRACTION_QUIZ2, Quiz.MULTIPLICATION_FRACTION_QUIZ3)),
-    DIVISION_FRACTION(8, quiz =  listOf(Quiz.DIVISION_FRACTION_QUIZ1, Quiz.DIVISION_FRACTION_QUIZ2, Quiz.DIVISION_FRACTION_QUIZ3)),
-    ADDITION_SUBTRACTION_DECIMALS(9,quiz = listOf(Quiz.ADDITION_SUBTRACTION_DECIMALS_QUIZ1, Quiz.ADDITION_SUBTRACTION_DECIMALS_QUIZ2, Quiz.ADDITION_SUBTRACTION_DECIMALS_QUIZ3)),
-    MULTIPLICATION_DECIMALS(10, quiz = listOf(Quiz.MULTIPLICATION_DECIMALS_QUIZ1, Quiz.MULTIPLICATION_DECIMALS_QUIZ2, Quiz.MULTIPLICATION_DECIMALS_QUIZ3)),
-    DIVISION_DECIMALS(11, quiz = listOf(Quiz.DIVISION_DECIMALS_QUIZ1, Quiz.DIVISION_DECIMALS_QUIZ2, Quiz.DIVISION_DECIMALS_QUIZ3)),
-    MIX_SUBJECT(12, quiz = listOf(
+    ADDITION_FRACTION(5, originalQuiz = listOf(Quiz.ADDITION_FRACTION_QUIZ1, Quiz.ADDITION_FRACTION_QUIZ2, Quiz.ADDITION_FRACTION_QUIZ3)),
+    SUBTRACTION_FRACTION(6, originalQuiz = listOf(Quiz.SUBTRACTION_FRACTION_QUIZ1, Quiz.SUBTRACTION_FRACTION_QUIZ2, Quiz.SUBTRACTION_FRACTION_QUIZ3)),
+    MULTIPLICATION_FRACTION(7, originalQuiz = listOf(Quiz.MULTIPLICATION_FRACTION_QUIZ1, Quiz.MULTIPLICATION_FRACTION_QUIZ2, Quiz.MULTIPLICATION_FRACTION_QUIZ3)),
+    DIVISION_FRACTION(8, originalQuiz =  listOf(Quiz.DIVISION_FRACTION_QUIZ1, Quiz.DIVISION_FRACTION_QUIZ2, Quiz.DIVISION_FRACTION_QUIZ3)),
+    ADDITION_SUBTRACTION_DECIMALS(9, originalQuiz = listOf(Quiz.ADDITION_SUBTRACTION_DECIMALS_QUIZ1, Quiz.ADDITION_SUBTRACTION_DECIMALS_QUIZ2, Quiz.ADDITION_SUBTRACTION_DECIMALS_QUIZ3)),
+    MULTIPLICATION_DECIMALS(10, originalQuiz = listOf(Quiz.MULTIPLICATION_DECIMALS_QUIZ1, Quiz.MULTIPLICATION_DECIMALS_QUIZ2, Quiz.MULTIPLICATION_DECIMALS_QUIZ3)),
+    DIVISION_DECIMALS(11, originalQuiz = listOf(Quiz.DIVISION_DECIMALS_QUIZ1, Quiz.DIVISION_DECIMALS_QUIZ2, Quiz.DIVISION_DECIMALS_QUIZ3)),
+    MIX_SUBJECT(12, originalQuiz = listOf(
         Quiz.MIX_QUIZ1,
         Quiz.MIX_QUIZ2,
         Quiz.MIX_QUIZ3,
@@ -95,7 +95,39 @@ enum class Story(
         Quiz.MIX_QUIZ9,
         Quiz.MIX_QUIZ10,
 
-    ))
+    ));
+
+    // Get the original quiz list (for backward compatibility)
+    val quiz: List<Quiz>
+        get() = originalQuiz
+
+    // Get a shuffled version of the quiz list without duplicates
+    fun getShuffledQuiz(): List<Quiz> {
+        return originalQuiz.shuffled()
+    }
+
+    // Get a specific number of shuffled questions without duplicates
+    fun getShuffledQuiz(count: Int): List<Quiz> {
+        val shuffled = originalQuiz.shuffled()
+        return if (count <= shuffled.size) {
+            shuffled.take(count)
+        } else {
+            shuffled
+        }
+    }
+
+    // Get a shuffled quiz list excluding already used questions
+    fun getShuffledQuizExcluding(usedQuestions: List<Quiz>): List<Quiz> {
+        val availableQuestions = originalQuiz.filter { quiz -> 
+            !usedQuestions.contains(quiz) 
+        }
+        return availableQuestions.shuffled()
+    }
+
+    // Get a fresh shuffled quiz list (useful for retakes)
+    fun getFreshShuffledQuiz(): List<Quiz> {
+        return originalQuiz.shuffled()
+    }
 }
 
 enum class Quiz(

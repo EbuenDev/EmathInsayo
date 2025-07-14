@@ -74,6 +74,8 @@ class OnBoardingActivity : ComponentActivity() {
 
 @Composable
 fun OnboardingScreen(onGetStartedClick: () -> Unit) {
+
+
     Box(
         modifier = Modifier
             .fillMaxSize()

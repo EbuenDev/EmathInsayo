@@ -64,6 +64,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.Font
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -71,6 +73,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.project.emathinsayo.R
 import com.project.emathinsayo.common.MainColorUtils
+import com.project.emathinsayo.data.Quiz
 import com.project.emathinsayo.data.Story
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -89,7 +92,8 @@ class StoryAndQuiz: ComponentActivity() {
             val answer by viewModel.answer.collectAsState()
             val level = viewModel.level // use this level to change the rules
             val score by viewModel.score.collectAsState()
-            val quizItem = currentStory.quiz.size
+            val shuffledQuizList by viewModel.shuffledQuizList.collectAsState()
+            val quizItem = shuffledQuizList.size
 
             val showScore by viewModel.showScore.collectAsState()
 
@@ -104,7 +108,8 @@ class StoryAndQuiz: ComponentActivity() {
                     ::onChooseAnswer,
                     ::onSeeResult,
                     level,
-                    quizItem
+                    quizItem,
+                    shuffledQuizList
                 )
             }
 
@@ -213,10 +218,20 @@ fun StoryAndQuizContent(
     onSeeResult: () -> Unit,
     level: String?,
     quizItem: Int,
+    shuffledQuizList: List<com.project.emathinsayo.data.Quiz>,
 ) {
+    val fredokaCondensedFont = FontFamily(
+        Font(R.font.fredoka_condensed_regular, FontWeight.Normal),
+        Font(R.font.fredoka_condensed_bold, FontWeight.Bold),
+        Font(R.font.fredoka_condensed_light, FontWeight.Light),
+        Font(R.font.fredoka_condensed_medium, FontWeight.Medium)
+    )
+
     var fillInAnswer by remember { mutableStateOf("") }
     val isHard = level?.lowercase() == "hard"
-    val quiz = currentStory.quiz[currentQuiz]
+    val quiz = shuffledQuizList[currentQuiz]
+
+
 
     val floatingEmojis = remember { mutableStateListOf<AnimatedEmoji>() }
 
@@ -246,9 +261,10 @@ fun StoryAndQuizContent(
                     verticalArrangement = Arrangement.Center,
                     modifier = Modifier.padding(16.dp),
                 ) {
-                    val questionNumber = quiz.id
+                    val questionNumber = currentQuiz + 1 // Show 1-based question number
                     Text(
                         text = "Question#$questionNumber",
+                        fontFamily = fredokaCondensedFont,
                         style = MaterialTheme.typography.titleLarge,
                         textAlign = TextAlign.Center
                     )
@@ -256,7 +272,8 @@ fun StoryAndQuizContent(
                     Text(
                         text = quiz.question,
                         style = MaterialTheme.typography.titleLarge,
-                        fontWeight = FontWeight.Bold,
+                        fontFamily = fredokaCondensedFont,
+                        fontWeight = FontWeight.Medium,
                         modifier = Modifier.padding(top = 16.dp)
                     )
 
@@ -327,7 +344,9 @@ fun StoryAndQuizContent(
             } else {
                 Text(
                     text = "Choices:",
-                    fontWeight = FontWeight.Bold,
+                    fontSize = 18.sp,
+                    fontWeight = FontWeight.Medium,
+                    fontFamily = fredokaCondensedFont,
                     style = MaterialTheme.typography.titleMedium,
                     color = Color.White,
                     modifier = Modifier
@@ -365,6 +384,7 @@ fun StoryAndQuizContent(
                         ) {
                             Text(
                                 text = "${'A' + index}) $choice",
+                                fontFamily = fredokaCondensedFont,
                                 style = MaterialTheme.typography.titleMedium,
                             )
                         }
@@ -401,6 +421,7 @@ fun StoryAndQuizContent(
                         Text(
                             text = if (answerStatus is AnswerStatus.Correct) "Correct!" else "Wrong!",
                             style = MaterialTheme.typography.titleMedium,
+                            fontFamily = fredokaCondensedFont,
                             color = Color.White,
                             textAlign = TextAlign.Center
                         )
@@ -417,7 +438,7 @@ fun StoryAndQuizContent(
 
             val buttonText = when {
                 answerStatus is AnswerStatus.None -> "Submit Answer"
-                quiz.id == lastNumber -> "See Result"
+                currentQuiz == lastNumber - 1 -> "See Result" // 0-based index
                 else -> "Next Question"
             }
 
@@ -426,7 +447,7 @@ fun StoryAndQuizContent(
                     if (answerStatus is AnswerStatus.None) {
                         onSubmit(fillInAnswer)
                     } else {
-                        if (quiz.id == lastNumber) {
+                        if (currentQuiz == lastNumber - 1) { // 0-based index
                             onSeeResult()
                         } else {
                             onNext()
@@ -442,6 +463,7 @@ fun StoryAndQuizContent(
             ) {
                 Text(
                     text = buttonText,
+                    fontFamily = fredokaCondensedFont,
                     fontWeight = FontWeight.Bold,
                     style = MaterialTheme.typography.bodyLarge.copy(color = Color.White)
                 )
@@ -531,6 +553,13 @@ fun GameDialogPreview() {
 @Composable
 fun GameResultDialog(score: Int, onHomeClick: () -> Unit, onPlayClick: () -> Unit, quizItem: Int) {
 
+    val fredokaCondensedFont = FontFamily(
+        Font(R.font.fredoka_condensed_regular, FontWeight.Normal),
+        Font(R.font.fredoka_condensed_bold, FontWeight.Bold),
+        Font(R.font.fredoka_condensed_light, FontWeight.Light),
+        Font(R.font.fredoka_condensed_medium, FontWeight.Medium)
+    )
+
     val calculatedScore: Int = score // Use the raw score directly
     val (starsEarned, label, bannerColor) = when {
         calculatedScore == 15 -> Triple(3, "EXCELLENT", Color(0xFF4CAF50))
@@ -568,6 +597,7 @@ fun GameResultDialog(score: Int, onHomeClick: () -> Unit, onPlayClick: () -> Uni
                     Text(
                         text = label,
                         fontSize = 24.sp,
+                        fontFamily = fredokaCondensedFont,
                         fontWeight = FontWeight.Bold,
                         color = Color.White
                     )
@@ -590,8 +620,8 @@ fun GameResultDialog(score: Int, onHomeClick: () -> Unit, onPlayClick: () -> Uni
 
                 Spacer(modifier = Modifier.height(16.dp))
 
-                Text("YOUR SCORE", fontWeight = FontWeight.Bold, fontSize = 18.sp, color = Color.DarkGray)
-                Text("$score/$quizItem", fontSize = 28.sp, fontWeight = FontWeight.Bold, color = Color(0xFFF57C00))
+                Text("YOUR SCORE", fontWeight = FontWeight.Bold, fontFamily = fredokaCondensedFont, fontSize = 18.sp, color = Color.DarkGray)
+                Text("$score/$quizItem", fontSize = 40.sp, fontWeight = FontWeight.Bold, fontFamily = fredokaCondensedFont, color = Color(0xFFF57C00))
 
                 Spacer(modifier = Modifier.height(16.dp))
 
@@ -644,5 +674,6 @@ fun StoryAndQuizContentPreview() {
         {},
         "medium",
         3,
+        Story.ADDITIONS.quiz,
     )
 }

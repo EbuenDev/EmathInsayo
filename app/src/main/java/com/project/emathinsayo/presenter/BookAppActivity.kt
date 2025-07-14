@@ -515,6 +515,12 @@ fun SubjectButton(
         score != null && score > 0 -> 1
         else -> 0
     }
+    val fredokaCondensedFont = FontFamily(
+        Font(R.font.fredoka_condensed_regular, FontWeight.Normal),
+        Font(R.font.fredoka_condensed_bold, FontWeight.Bold),
+        Font(R.font.fredoka_condensed_light, FontWeight.Light),
+        Font(R.font.fredoka_condensed_medium, FontWeight.Medium)
+    )
 
     // Define different color gradients for each subject
     val gradientColors = when (level) {
@@ -563,8 +569,9 @@ fun SubjectButton(
                     Row(verticalAlignment = Alignment.CenterVertically) {
                         Text(
                             text = title,
+                            fontFamily = fredokaCondensedFont,
                             fontWeight = FontWeight.Bold,
-                            fontSize = 26.sp,
+                            fontSize = 30.sp,
                             style = MaterialTheme.typography.titleLarge,
                             color = Color.White,
                             modifier = Modifier.padding(top = 8.dp, start = 16.dp)
@@ -582,6 +589,7 @@ fun SubjectButton(
                                     Text(
                                         text = "Taken",
                                         style = MaterialTheme.typography.bodySmall,
+                                        fontFamily = fredokaCondensedFont,
                                         color = Color.White,
                                         modifier = Modifier.padding(
                                             start = 6.dp,
@@ -664,6 +672,7 @@ fun SubjectButton(
 fun CuteImage(icon: Painter, modifier: Modifier = Modifier) {
     Image(painter = icon, contentDescription = null, modifier = modifier)
 }
+
 
 @Composable
 fun SubjectButtonPreview() {
@@ -1039,43 +1048,6 @@ fun AboutPage() {
     }
 }
 
-@Composable
-fun TeamMembersCard() {
-    Card(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(bottom = 16.dp),
-        elevation = CardDefaults.cardElevation(8.dp),
-        colors = CardDefaults.cardColors(containerColor = MainColorUtils.surface)
-    ) {
-        Column(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(20.dp),
-            horizontalAlignment = Alignment.CenterHorizontally){
-            Text(
-                text = "Our Team Members",
-                fontSize = 18.sp,
-                style = MaterialTheme.typography.titleSmall,
-                color = MainColorUtils.primary,
-                modifier = Modifier.padding(bottom = 8.dp)
-
-            )
-            Text(
-                text = """
-                    • Bea S. Buenavente
-                    • Loren Y. Todenio
-                    • Daniela A. Samonte
-                    • Emmanuel Toledo
-                    • John Lloyd Ladea
-                """.trimIndent(),
-                fontSize = 15.sp,
-                style = MaterialTheme.typography.bodyMedium,
-                color = MaterialTheme.colorScheme.onSurface
-            )
-        }
-    }
-}
 
 @Composable
 fun SectionWithIcon(icon: ImageVector, title: String, content: String) {
