@@ -10,6 +10,7 @@ import android.webkit.WebView
 import android.webkit.WebViewClient
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
@@ -24,6 +25,8 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.Alignment
 
 
 @AndroidEntryPoint
@@ -70,28 +73,44 @@ fun LessonWithQuizScreen(link: String, onQuizClicked: () -> Unit) {
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(16.dp)
-                        .height(56.dp), // Make button taller
+                        .height(56.dp),
                     colors = ButtonDefaults.buttonColors(
-                        containerColor = Color(0xFFFFEB3B), // Yellow
-                        contentColor = Color.Black // Black text for contrast
+                        containerColor = Color.Transparent, // Make background transparent for gradient
+                        contentColor = Color.Black
                     ),
                     elevation = ButtonDefaults.buttonElevation(
                         defaultElevation = 8.dp,
                         pressedElevation = 12.dp
-                    )
+                    ),
+                    contentPadding = PaddingValues() // Remove default padding to let Box fill the button
                 ) {
-                    Text(
-                        text = "🔥TAKE QUIZ🔥",
-                        style = LocalTextStyle.current.copy(
-                            fontWeight = FontWeight.Bold,
-                            fontSize = 18.sp,
-                            fontFamily = fredokaCondensedFont,
-                            letterSpacing = 2.sp
-                        ),
-                        modifier = Modifier,
-                        maxLines = 1,
-                        overflow = TextOverflow.Ellipsis
-                    )
+                    Box(
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .background(
+                                brush = Brush.horizontalGradient(
+                                    colors = listOf(
+                                        Color(0xFFFFF176), // Light Yellow
+                                        Color(0xFFFFEB3B), // Medium Yellow
+                                        Color(0xFFFFD600)  // Deeper Yellow
+                                    )
+                                ),
+                                shape = MaterialTheme.shapes.medium
+                            ),
+                        contentAlignment = Alignment.Center
+                    ) {
+                        Text(
+                            text = "🔥TAKE QUIZ🔥",
+                            style = LocalTextStyle.current.copy(
+                                fontWeight = FontWeight.Bold,
+                                fontSize = 18.sp,
+                                fontFamily = fredokaCondensedFont,
+                                letterSpacing = 2.sp
+                            ),
+                            maxLines = 1,
+                            overflow = TextOverflow.Ellipsis
+                        )
+                    }
                 }
             }
         }
