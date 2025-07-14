@@ -501,7 +501,7 @@ fun StoryAndQuizContent(
 data class AnimatedEmoji(val emoji: String, val id: Long)
 
 @Composable
-fun FloatingEmoji(emoji: String, onAnimationEnd: () -> Unit) {
+fun FloatingEmoji(emoji: String, onAnimationEnd: () -> Unit) { // emoji should be change integer to drawable resource
     val yOffset = remember { Animatable(0f) }
     val alpha = remember { Animatable(1f) }
 
@@ -523,6 +523,7 @@ fun FloatingEmoji(emoji: String, onAnimationEnd: () -> Unit) {
 
     Box (Modifier.fillMaxSize().padding(24.dp).background(color = Color.Transparent),
         ) {
+        // change to imageview
         Text(
             text = emoji,
             fontSize = 100.sp,
