@@ -155,9 +155,12 @@ fun AssetWebView(
                 isScrollbarFadingEnabled = true
                 overScrollMode = OVER_SCROLL_NEVER
 
-                // Only use scroll listener if supported
                 if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
-                    setOnScrollChangeListener { _, _, scrollY, _, _ ->
+                    setOnScrollChangeListener { _, scrollX, scrollY, _, _ ->
+                        // Prevent horizontal scrolling
+                        if (scrollX != 0) {
+                            scrollTo(0, scrollY)
+                        }
                         val contentHeightPx = contentHeight * scale
                         val viewBottom = height + scrollY
                         if (viewBottom >= contentHeightPx - 10) {
