@@ -267,7 +267,7 @@ fun StoryAndQuizContent(
                         style = MaterialTheme.typography.bodyMedium,
                         fontFamily = fredokaCondensedFont,
                         fontWeight = FontWeight.Medium,
-                        fontSize = 19.sp,
+                        fontSize = 20.sp,
                         color = Color(0xFF2C3E50),
                         modifier = Modifier.padding(top = 8.dp, bottom = 8.dp)
                     )
@@ -279,7 +279,7 @@ fun StoryAndQuizContent(
                         fontFamily = fredokaCondensedFont,
                         style = MaterialTheme.typography.titleLarge,
                         fontWeight = FontWeight.Bold,
-                        fontSize = 27.sp,
+                        fontSize = 35.sp,
                         textAlign = TextAlign.Center,
                         color = Color(0xFF22BB33) // Dark green for visibility
                     )
@@ -291,6 +291,7 @@ fun StoryAndQuizContent(
                         text = quiz.question,
                         style = MaterialTheme.typography.titleLarge,
                         fontFamily = fredokaCondensedFont,
+                        fontSize = 25.sp,
                         fontWeight = FontWeight.Medium,
                         modifier = Modifier.padding(top = 16.dp)
                     )
@@ -362,7 +363,7 @@ fun StoryAndQuizContent(
             } else {
                 Text(
                     text = "Choices:",
-                    fontSize = 18.sp,
+                    fontSize = 21.sp,
                     fontWeight = FontWeight.Medium,
                     fontFamily = fredokaCondensedFont,
                     style = MaterialTheme.typography.titleMedium,
@@ -402,6 +403,7 @@ fun StoryAndQuizContent(
                         ) {
                             Text(
                                 text = "${'A' + index}) $choice",
+                                fontSize = 22.sp,
                                 fontFamily = fredokaCondensedFont,
                                 style = MaterialTheme.typography.titleMedium,
                             )
@@ -440,6 +442,8 @@ fun StoryAndQuizContent(
                             text = if (answerStatus is AnswerStatus.Correct) "Correct!" else "Wrong!",
                             style = MaterialTheme.typography.titleMedium,
                             fontFamily = fredokaCondensedFont,
+                            fontWeight = FontWeight.Bold,
+                            fontSize = 21.sp,
                             color = Color.White,
                             textAlign = TextAlign.Center
                         )
@@ -480,6 +484,7 @@ fun StoryAndQuizContent(
                     text = buttonText,
                     fontFamily = fredokaCondensedFont,
                     fontWeight = FontWeight.Bold,
+                    fontSize = 21.sp,
                     style = MaterialTheme.typography.bodyLarge.copy(color = Color.White)
                 )
             }
