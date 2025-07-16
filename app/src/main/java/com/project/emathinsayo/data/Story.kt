@@ -443,20 +443,20 @@ enum class Quiz(
 
 
     // Mixed questions
-    MIX_QUIZ1(1, "What is 10 ÷ 0.4?", listOf("25", "20", "15"), 1),                 //DIVISION_DECIMALS
-    MIX_QUIZ2(2, "What is 0.25 × 0.25?", listOf("0.0625", "0.0525", "0.065"), 1),   //MULTIPLICATION_DECIMALS
-    MIX_QUIZ3(3, "What is 10.25 + 0.75?", listOf("10.85", "11.25", "11.0"), 3),     //ADDITION_SUBTRACTION_DECIMALS
-    MIX_QUIZ4(4, "81 ÷ 9 = ?", listOf("9", "8", "10"), 1),                          // DIVISION_FRACTION
-    MIX_QUIZ5(5, "1/4 x 2/3 = ?", listOf("2/12", "1/4", "1/6"), 3),                 //MULTIPLICATION_FRACTION
-    MIX_QUIZ6(6, "2/3 - 1/6 = ?", listOf("1/3", "1/2", "1/4"), 2),                  // SUBTRACTION_FRACTION
-    MIX_QUIZ7(7, "2/3 + 1/6 = ?", listOf("3/9", "5/6", "3/6"), 2),                  // ADDITION_FRACTION
+    MIX_QUIZ1(1, "What is 10 ÷ 0.4?", listOf("25", "20", "15","20"), 1),                 //DIVISION_DECIMALS
+    MIX_QUIZ2(2, "What is 0.25 × 0.25?", listOf("0.0625", "0.0525", "0.065","0.0621"), 1),   //MULTIPLICATION_DECIMALS
+    MIX_QUIZ3(3, "What is 10.25 + 0.75?", listOf("10.85", "11.25", "11.0","10.50"), 3),     //ADDITION_SUBTRACTION_DECIMALS
+    MIX_QUIZ4(4, "81 ÷ 9 = ?", listOf("9", "8", "10","12"), 1),                          // DIVISION_FRACTION
+    MIX_QUIZ5(5, "1/4 x 2/3 = ?", listOf("2/12", "1/4", "1/6","1/2"), 3),                 //MULTIPLICATION_FRACTION
+    MIX_QUIZ6(6, "2/3 - 1/6 = ?", listOf("1/3", "1/2", "1/4","1/8"), 2),                  // SUBTRACTION_FRACTION
+    MIX_QUIZ7(7, "2/3 + 1/6 = ?", listOf("3/9", "5/6", "3/6","6/5"), 2),                  // ADDITION_FRACTION
     MIX_QUIZ8(8, "132 ÷ 11 = ?", listOf("12", "11", "13", "10"), 1),                // DIVISION
     MIX_QUIZ9(9, "90 ÷ 6 = ?", listOf("15", "12", "18", "14"), 1),                  // DIVISION
-    MIX_QUIZ10(10, "1/2 - 1/8 = ?", listOf("1/10", "3/8", "2/8"), 2),
+    MIX_QUIZ10(10, "1/2 - 1/8 = ?", listOf("1/10", "3/8", "2/8","8/3"), 2),
     MIX_QUIZ11(11, "What is the total of 12,304 + 5,601?", listOf( "17,805", "18,005", "17,705","17,905"), 4),
-    MIX_QUIZ12(12, "Find: 7.5 × 0.4", listOf("3.2", "3.0", "2.8"), 2),
+    MIX_QUIZ12(12, "Find: 7.5 × 0.4", listOf("3.2", "3.0", "2.8","3.1"), 2),
     MIX_QUIZ13(13, "What is 9 × 8 = ?", listOf("64", "72", "80", "68"), 2),
     MIX_QUIZ14(14, "What is 7 × 11 = ?", listOf("84", "70", "77", "73"), 3),
-    MIX_QUIZ15(15, "What is 8.4 ÷ 0.7?", listOf("12", "11", "10"), 1),
+    MIX_QUIZ15(15, "What is 8.4 ÷ 0.7?", listOf("12", "11", "10","13"), 1),
 
 }
