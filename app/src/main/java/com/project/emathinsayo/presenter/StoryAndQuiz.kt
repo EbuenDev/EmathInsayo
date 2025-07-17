@@ -417,8 +417,14 @@ fun StoryAndQuizContent(
             if (answerStatus !is AnswerStatus.None) {
                 val color = if (answerStatus is AnswerStatus.Correct) "#22bb33" else "#bb2124"
                 LaunchedEffect(answerStatus) {
-                        val emoji = if (answerStatus is AnswerStatus.Correct) "✅" else "❌"
-                        floatingEmojis.add(AnimatedEmoji(emoji = emoji, id = System.currentTimeMillis()))
+
+                    val drawableResId = if (answerStatus is AnswerStatus.Correct) {
+                        R.drawable.good_job_student_sticker
+                    } else {
+                        R.drawable.opps_tryagain_student_sticker
+                    }
+                    floatingEmojis.add(AnimatedEmoji(drawableResId = drawableResId, id = System.currentTimeMillis()))
+
                 }
                 Card(
                     shape = RoundedCornerShape(8.dp),
@@ -494,7 +500,7 @@ fun StoryAndQuizContent(
 
         floatingEmojis.forEach { emojiItem ->
             FloatingEmoji(
-                emoji = emojiItem.emoji,
+                drawableResId = emojiItem.drawableResId,
                 onAnimationEnd = {
                     floatingEmojis.remove(emojiItem)
                 }
@@ -503,10 +509,10 @@ fun StoryAndQuizContent(
     }
 }
 
-data class AnimatedEmoji(val emoji: String, val id: Long)
+data class AnimatedEmoji(val drawableResId: Int, val id: Long)
 
 @Composable
-fun FloatingEmoji(emoji: String, onAnimationEnd: () -> Unit) { // emoji should be change integer to drawable resource
+fun FloatingEmoji(drawableResId: Int, onAnimationEnd: () -> Unit) {
     val yOffset = remember { Animatable(0f) }
     val alpha = remember { Animatable(1f) }
 
@@ -514,27 +520,31 @@ fun FloatingEmoji(emoji: String, onAnimationEnd: () -> Unit) { // emoji should b
         launch {
             yOffset.animateTo(
                 targetValue = -300f,
-                animationSpec = tween(durationMillis = 1500, easing = LinearEasing)
+                animationSpec = tween(durationMillis = 2500, easing = LinearEasing)
             )
         }
         launch {
             alpha.animateTo(
                 targetValue = 0f,
-                animationSpec = tween(durationMillis = 1500)
+                animationSpec = tween(durationMillis = 3500)
             )
             onAnimationEnd()
         }
     }
 
-    Box (Modifier.fillMaxSize().padding(24.dp).background(color = Color.Transparent),
-        ) {
-        // change to imageview
-        Text(
-            text = emoji,
-            fontSize = 100.sp,
+    Box(
+        Modifier
+            .fillMaxSize()
+            .padding(24.dp)
+            .background(color = Color.Transparent),
+    ) {
+        Image(
+            painter = painterResource(id = drawableResId),
+            contentDescription = "Floating sticker",
             modifier = Modifier
+                .size(180.dp)
                 .offset(y = yOffset.value.dp)
-                .align(Alignment.BottomEnd)
+                .align(Alignment.Center)
                 .alpha(alpha.value)
         )
     }
